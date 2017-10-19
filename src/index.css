@@ -1,0 +1,352 @@
+@import url("components/add_card/add_card.css");
+@import url("components/list/list.css");
+@import url("components/list_card/list_card.css");
+@import url("components/card/card.css");
+@import url("components/board/board.css");
+@import url("components/inspector/inspector.css");
+@import url("components/add_list/add_list.css");
+@import url("components/assignments/assignments.css");
+@import url("components/flash/flash.css");
+
+@font-face {
+  font-family: Pacifico;
+  src: url("./assets/fonts/Pacifico.ttf");
+}
+
+@font-face {
+  font-family: Nunito;
+  src: url("./assets/fonts/Nunito-Regular.ttf");
+}
+
+@font-face {
+  font-family: Nunito;
+  src: url("./assets/fonts/Nunito-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Open Sans;
+  src: url("./assets/fonts/OpenSans-ExtraBold.ttf");
+}
+
+html, body, #App {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* https://coolors.co/d00000-ffba08-a2aebb-3e363f-3f88c5 */
+  --color-app: #3F88C5;
+
+  --color-change-highlight-bg: #93C43E;
+  --color-change-highlight: #698C2C;
+
+  --color-dark: #3E363F;
+  --color-dim: #777;
+  --color-medium: #A2AEBB;
+  --color-light: white;
+
+  /* yellow LED */
+  --color-led-connecting: #FFBA08;
+  --color-led-connecting-border: #AA7B05;
+
+  /* green LED */
+  --color-led-connected: #93C43E;
+  --color-led-connected-border: #698C2C;
+
+  /* gray LED */
+  --color-led-disconnected: #A2AEBB;
+  --color-led-disconnected-border: #6A727A;
+
+  /* red LED */
+  --color-led-error: #FF001F;
+  --color-led-error-border: #B10015;
+}
+
+a {
+  cursor: pointer;
+}
+
+.App {
+  font-family: Helvetica Neue, Helvetica, Arial;
+  color: var(--color-dark);
+  height: 100%;
+  display: grid;
+  grid-template-rows: 25% 25% 25% 25%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+.Inspector img,
+.Network img,
+.Changes img,
+.Documents img {
+  height: 20px;
+  padding-left: 4px;
+}
+
+.Inspector {
+  grid-row: 4;
+  grid-column: 1 / 4;
+  background-color: var(--color-light);
+  font-size: 8pt;
+  padding: 10pt 14pt;
+  border-top: 1px solid #aaa;
+  overflow: scroll;
+}
+
+.Inspector__container {
+  display: flex;
+}
+
+.Sidebar {
+  grid-row: 1 / 5;
+  grid-column: 4;
+  background-color: var(--color-light);
+  border-top: 1px solid #aaa;
+  border-left: 1px solid #aaa;
+  font-size: 12px;
+  overflow-y: auto;
+}
+
+.Network {
+  padding: 16px 16px;
+  padding-top: 20px;
+  position: relative;
+}
+
+.Signaler__introduce__detail textarea {
+  height: 1.6em;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.Signalers {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  grid-template-rows: 24px;
+}
+
+.Signaler__introduce__title {
+  font-size: 12px;
+  grid-row: 1;
+  grid-column: 1;
+}
+.Signaler__introduce__detail {
+  grid-row: 1;
+  grid-column: 2;
+}
+.Signaler__introduce__action {
+  grid-row: 1;
+  grid-column: 3;
+  justify-self: end;
+}
+.Signaler__bonjour__title {
+  font-size: 12px;
+  grid-row: 2;
+  grid-column: 1;
+}
+.Signaler__bonjour__detail {
+  grid-row: 2;
+  grid-column: 2;
+}
+.Signaler__bonjour__action {
+  grid-row: 2;
+  grid-column: 3;
+  justify-self: end;
+}
+
+.Network__introduce {
+  margin: 10px 0;
+  grid-row: 1;
+  grid-column: 1 / 3;
+}
+
+.Network__introduce .Network__introduce__led, .Network__bonjour .Network__bonjour__led {
+  height: 10px;
+  margin-right: 8px;
+  margin-left: 0;
+  padding-left: 0;
+  vertical-align: middle;
+}
+
+.Network__introduce textarea {
+  height: 1.2em;
+  outline: none;
+  padding: 0.2em;
+  border-color: #CCC;
+  color: #666;
+}
+
+.Signaler__introduce__action button {
+  background: #eee;
+  color: var(--color-dark);
+  border: 1px solid var(--color-dim);
+  border-radius: 2px;
+  margin-left: 4px;
+}
+
+.Signaler__bonjour__action .bonjourSwitch {
+  width: 32px;
+}
+
+.Network .networkSwitch {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  width: 32px;
+}
+.Network table {
+  border-collapse: collapse;
+}
+.Network th {
+  font-weight: normal;
+  font-size: 9px;
+  text-align: left;
+  color: #aaa;
+  padding-bottom: 4px;
+}
+.Network td {
+  padding: 0;
+  padding-bottom: 8px;
+  padding-right: 6px;
+}
+.Network td.led img {
+  width: 10px;
+  height: 10px;
+  margin-left: -7px;
+}
+
+.Documents {
+  padding: 16px 16px;
+  padding-top: 0;
+}
+.Documents .document {
+  background: #FAFAFA;
+  border: 1px solid #DDDDDD;
+  border-radius: 8px;
+  padding: 6px 8px;
+  position: relative;
+  font-size: 12px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+.Documents .document .docid {
+  color: var(--color-dim);
+}
+.Documents .document .title {
+  font-size: 16px;
+  font-weight: 500;
+}
+.Documents .document .users {
+  margin-top: 2px;
+}
+
+.Changes {
+  padding: 16px 16px;
+  padding-top: 0;
+}
+.Changes ul {
+  list-style-type: none;
+  padding: 0;
+  font-size: 12px;
+}
+.Changes li {
+  position: relative;
+  min-height: 14px;
+  padding-left: 24px;
+  padding-bottom: 8px;
+  color: var(--color-dim);
+}
+.Changes div.changeNode {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid var(--color-dim);
+  background: var(--color-medium);
+  cursor: pointer;
+}
+.Changes .highlight div.changeNode {
+  border: 1px solid var(--color-change-highlight);
+  background: var(--color-change-highlight-bg);
+}
+.Changes div.changeEdge {
+  height: 100%;
+  min-height: 11px;
+  width: 1px;
+  background: var(--color-dim);
+  position: absolute;
+  left: 6px;
+  top: 13px;
+}
+.Changes li.highlight {
+  color: var(--color-dark);
+}
+.Changes span.card,
+.Changes span.list {
+  color: var(--color-dark);
+  font-weight: 500;
+}
+
+.DropTarget {
+  margin-bottom: 10px;
+  border-bottom: 2px dashed transparent;
+  min-height: 20px;
+}
+
+.DropTarget.drag-entered {
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
+}
+
+.InlineInput div, .InlineInput textarea {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+  display: block;
+  white-space: pre-wrap;
+  background: transparent;
+}
+
+.led-connected, .led-error, .led-connecting, .led-disconnected {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.led-disconnected {
+  border: 1px solid var(--color-led-disconnected-border);
+  background: var(--color-led-disconnected);
+}
+
+.led-connecting {
+  border: 1px solid var(--color-led-connecting-border);
+  background: var(--color-led-connecting);
+}
+
+.led-error {
+  border: 1px solid var(--color-led-error-border);
+  background: var(--color-led-error);
+}
+
+.led-connected {
+  border: 1px solid var(--color-led-connected-border);
+  background: var(--color-led-connected);
+}

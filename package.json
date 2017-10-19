@@ -1,0 +1,84 @@
+{
+  "name": "Trellis",
+  "productName": "Trellis",
+  "version": "0.1.4",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "lint": "echo \"No linting configured\"",
+    "publish": "electron-forge publish",
+    "test": "mocha --compilers js:babel-core/register test"
+  },
+  "keywords": [],
+  "author": "Choxi",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "osxSign": true,
+        "icon": "./src/assets/Logo.icns"
+      },
+      "electronWinstallerConfig": {
+        "name": "trellis"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "inkandswitch",
+        "name": "trellis",
+        "draft": false
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "trellis"
+      }
+    }
+  },
+  "dependencies": {
+    "assert": "1.4.1",
+    "body-parser": "^1.17.2",
+    "bonjour": "^3.5.0",
+    "dotenv": "4.0.0",
+    "electron-compile": "6.4.0",
+    "electron-devtools-installer": "2.2.0",
+    "electron-log": "2.2.6",
+    "express": "^4.15.3",
+    "lz4": "0.5.3",
+    "mpl": "^0.3.0",
+    "react": "15.5.4",
+    "react-dom": "15.5.4",
+    "react-redux": "5.0.4",
+    "redux": "3.6.0",
+    "request": "^2.81.0",
+    "wifi-name": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "6.24.1",
+    "babel-plugin-transform-es2015-classes": "6.24.1",
+    "babel-preset-env": "1.4.0",
+    "babel-preset-react": "6.24.1",
+    "electron-prebuilt-compile": "1.6.2",
+    "mocha": "3.4.1",
+    "spectron": "3.6.4"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
+}

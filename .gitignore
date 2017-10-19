@@ -1,0 +1,6 @@
+node_modules
+out
+trellis/
+.env
+*.swp
+*.trellis
