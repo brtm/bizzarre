@@ -1,12 +1,15 @@
+/*
 @import url("components/add_card/add_card.css");
 @import url("components/list/list.css");
 @import url("components/list_card/list_card.css");
 @import url("components/card/card.css");
 @import url("components/board/board.css");
-@import url("components/inspector/inspector.css");
 @import url("components/add_list/add_list.css");
 @import url("components/assignments/assignments.css");
+*/
+@import url("components/inspector/inspector.css");
 @import url("components/flash/flash.css");
+@import url("components/canvas/canvas.css");
 
 @font-face {
   font-family: Pacifico;
@@ -74,7 +77,7 @@ a {
   height: 100%;
   display: grid;
   grid-template-rows: 25% 25% 25% 25%;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
 }
 
 h2 {
@@ -84,6 +87,14 @@ h2 {
   padding: 0;
   margin-bottom: 10px;
 }
+
+.Inspector,
+.Network,
+.Changes,
+.Documents {
+  display: none;
+}
+
 .Inspector img,
 .Network img,
 .Changes img,

@@ -1,5 +1,9 @@
 import React from 'react'
-import Board from './board/board'
+
+//import Board from './board/board'
+
+import Canvas from './canvas/canvas'
+
 import Inspector from './inspector/inspector'
 import Network from './network'
 import Documents from './documents'
@@ -57,9 +61,9 @@ export default class App extends React.Component {
   componentDidMount() {
     let lastDocOpened = this.getRecentDocsAsList().slice(-1)[0]
 
-    if(lastDocOpened && lastDocOpened.id)
-      this.open(lastDocOpened.id)
-    else
+ //   if(lastDocOpened && lastDocOpened.id)
+ //     this.open(lastDocOpened.id)
+ //   else
       this.open()
   }
 
@@ -132,10 +136,12 @@ export default class App extends React.Component {
 
     if(!docId) {
       this.store.dispatch({ type: "NEW_DOCUMENT" })
-    } else if(fs.existsSync(savePath)) {
+    } 
+    else if(fs.existsSync(savePath)) {
       let file = fs.readFileSync(savePath)
       this.store.dispatch({ type: "OPEN_DOCUMENT", file: file })
-    } else {
+    } 
+    else {
       this.store.dispatch({ type: "OPEN_DOCUMENT", docId: docId })
     }
 
@@ -166,6 +172,18 @@ export default class App extends React.Component {
       this.setWindowTitle()
     }
   }
+
+  // funcs
+
+  addCard(x, y) {
+    this.store.dispatch({
+      type: 'ADD_CARD',
+      x: x,
+      y: y
+    });
+  }
+
+  // render
 
   render() {
     let prevChange, currentChange, highlightCard
@@ -199,7 +217,9 @@ export default class App extends React.Component {
 
     return (
       <div className="App">
-        <Board ref={ (node) => this.board = node } highlightOptions={{ cardId: highlightCard }} store={ this.store } />
+        <Canvas model={this.store.getState()}
+          onAddCard={this.addCard.bind(this)} />
+        {/*<Board ref={ (node) => this.board = node } highlightOptions={{ cardId: highlightCard }} store={ this.store } />*/}
         <Inspector store={ this.store } highlightOptions={{ tableName: "cards", row: cardIndex }} />
         <div className="Sidebar">
           <Network network={ this.store.network } store={ this.store } />
