@@ -13,7 +13,8 @@ export default class Canvas extends React.Component {
             {blocks.map((block) =>
                 <Container key={block.id} 
                     block={block}
-                    onDropCard={this.props.onDropCard}/>
+                    onDropCard={this.props.onDropCard}
+                    onResizeCard={this.props.onResizeCard}/>
             )}
         </div>
     );

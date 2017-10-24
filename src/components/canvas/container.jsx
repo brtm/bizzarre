@@ -30,7 +30,8 @@ class Container extends Component {
           {cards.map(card =>
             <Card key={card.id} 
                 card={card}
-                onDropCard={this.props.onDropCard}/>
+                onDropCard={this.props.onDropCard}
+                onResizeCard={this.props.onResizeCard}/>
           )}
           </div>
 

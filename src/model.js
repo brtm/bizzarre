@@ -106,8 +106,6 @@ export function addCard(doc, point) {
 }
 
 export function dropCard(doc, cardId, point) {
-    console.log("Drop to " + point.x + "," + point.y)
-
     const card = findCard(doc, cardId);
     const currentBlock = findBlockFor(doc, card);
     const centerPoint = {
@@ -165,4 +163,10 @@ export function dropCard(doc, cardId, point) {
       postIt.y -= targetBlock.y - currentBlock.y;// - targetBlock.y;
     }
   }*/
+}
+
+export function resizeCard(doc, cardId, width, height) {
+    const card = findCard(doc, cardId);
+    card.w = width;
+    card.h = height;
 }

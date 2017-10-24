@@ -36,7 +36,9 @@ class Card extends Component {
     const {x, y} = this.props.card;
     const deltaX = this.state.deltaX || 0;
     const deltaY = this.state.deltaY || 0;
-    const {title, color, w, h} = this.props.card;
+    const {title, color} = this.props.card;
+    const w = this.state.rw || this.props.card.w;
+    const h = this.state.rh || this.props.card.h;
 
     let textX = x + 20;
     let textY = y + 20;
@@ -75,7 +77,11 @@ class Card extends Component {
         <div>
           {toolBarElem}
 
-          <Resizable height={h} width={w} minConstraints={[98, 50]} onResize={(event, {size}) => this.handleResize(event, this.props.postIt, size)}>
+          <Resizable height={h} width={w} minConstraints={[98, 50]} 
+              onResizeStart={this.handleResizeStart.bind(this)}
+              onResize={this.handleResize.bind(this)}
+              onResizeStop={this.handleResizeStop.bind(this)}>
+
             <div className={"postit " + color + (selected? " selected" : "")} style={{
                   position: 'absolute',
                   left: x + deltaX,
@@ -111,10 +117,9 @@ class Card extends Component {
   }
 
   handleDragMove(e, dragInfo) {
-    //e.preventDefault();
+    e.preventDefault();
     const deltaX = (this.state.deltaX || 0) + dragInfo.deltaX;
     const deltaY = (this.state.deltaY || 0) + dragInfo.deltaY;
-    console.log("Move to " + deltaX + "," + deltaY)
     this.setState({deltaX: deltaX, deltaY: deltaY});
   }
 
@@ -126,6 +131,22 @@ class Card extends Component {
       this.props.onDropCard(card, deltaX, deltaY)
       this.setState({deltaX: 0, deltaY: 0});
     }, 0);
+  }
+
+  handleResizeStart(e, data) {
+    this.setState({rw: undefined, rh: undefined});
+  }
+
+  handleResize(e, data) {
+    const {width, height} = data.size;
+    this.setState({rw: width, rh: height});
+  }
+
+  handleResizeStop(e, data) {
+    const card = this.props.card;
+    const {width, height} = data.size;
+    this.props.onResizeCard(card, width, height);
+    this.setState({rw: undefined, rh: undefined});
   }
 
 /*  onMoveToFront = (e) => {

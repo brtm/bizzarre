@@ -194,6 +194,15 @@ export default class App extends React.Component {
     })
   }
 
+  resizeCard(card, width, height) {
+    this.store.dispatch({
+      type: 'RESIZE_CARD',
+      card: card,
+      width: width,
+      height: height
+    });
+  }
+
   // render
 
   render() {
@@ -231,6 +240,7 @@ export default class App extends React.Component {
         <Canvas model={this.store.getState()}
           onAddCard={this.addCard.bind(this)} 
           onDropCard={this.dropCard.bind(this)}
+          onResizeCard={this.resizeCard.bind(this)}
           />
         {/*<Board ref={ (node) => this.board = node } highlightOptions={{ cardId: highlightCard }} store={ this.store } />*/}
         <Inspector store={ this.store } highlightOptions={{ tableName: "cards", row: cardIndex }} />
