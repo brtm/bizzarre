@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Resizable} from 'react-resizable';
-import {DraggableCore} from 'react-draggable';
+import Draggable, {DraggableCore} from 'react-draggable';
 //import PostItToolbar from './PostItToolbar';
 
 class Card extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      deltaX: 0,
+      deltaY: 0
+    };
+  }
 
   componentDidMount() {
     const selected = false;//this.props.isSelected(this.props.postIt);
@@ -26,6 +34,8 @@ class Card extends Component {
 
   render() {
     const {x, y} = this.props.card;
+    const deltaX = this.state.deltaX || 0;
+    const deltaY = this.state.deltaY || 0;
     const {title, color, w, h} = this.props.card;
 
     let textX = x + 20;
@@ -58,9 +68,9 @@ class Card extends Component {
 
     return <div>
       <DraggableCore handle=".handle"
-          onStart={(e, dragInfo) => this.props.onStartDragPostIt(this.props.postIt)}
-          onDrag={(e, dragInfo) => this.handleDrag(e, dragInfo)}
-          onStop={(e, dragInfo) => this.handleDrop(this.props.onDropPostIt, this.props.postIt, dragInfo)}>
+          onStart={this.handleDragStart.bind(this)}
+          onDrag={this.handleDragMove.bind(this)}
+          onStop={this.handleDrop.bind(this)}>
 
         <div>
           {toolBarElem}
@@ -68,12 +78,12 @@ class Card extends Component {
           <Resizable height={h} width={w} minConstraints={[98, 50]} onResize={(event, {size}) => this.handleResize(event, this.props.postIt, size)}>
             <div className={"postit " + color + (selected? " selected" : "")} style={{
                   position: 'absolute',
-                  left: x,
-                  top: y,
+                  left: x + deltaX,
+                  top: y + deltaY,
                   width: w - 2, // 1px border on both sides
                   height: h - 2, // 1px border on both sides
                 }}
-                onClick={(e) => { e.stopPropagation(); this.props.onSelect(this.props.postIt); }}>
+                onClick={(e) => { e.stopPropagation(); /*this.props.onSelect(this.props.postIt);*/ }}>
 
               <div className="postit-color-layer">
                 <svg width={w - 2} height={h - 2} viewBox={"0 0 " + (w - 2) + " " + (h - 2)} xmlns="http://www.w3.org/2000/svg">
@@ -94,6 +104,28 @@ class Card extends Component {
         </div>
       </DraggableCore>
     </div>;
+  }
+
+  handleDragStart(e, dragInfo) {
+    this.setState({deltaX: 0, deltaY: 0});
+  }
+
+  handleDragMove(e, dragInfo) {
+    //e.preventDefault();
+    const deltaX = (this.state.deltaX || 0) + dragInfo.deltaX;
+    const deltaY = (this.state.deltaY || 0) + dragInfo.deltaY;
+    console.log("Move to " + deltaX + "," + deltaY)
+    this.setState({deltaX: deltaX, deltaY: deltaY});
+  }
+
+  handleDrop(e, dragInfo) {
+    const card = this.props.card;
+    const deltaX = (this.state.deltaX || 0);
+    const deltaY = (this.state.deltaY || 0);
+    setTimeout(() => {
+      this.props.onDropCard(card, deltaX, deltaY)
+      this.setState({deltaX: 0, deltaY: 0});
+    }, 0);
   }
 
 /*  onMoveToFront = (e) => {

@@ -2,7 +2,7 @@ import fs from 'fs'
 import uuid from './uuid'
 import seedData from './seed_data'
 import MPL from 'mpl'
-import {addCard} from '../model'
+import {addCard, dropCard} from '../model'
 
 const Automerge = MPL.Automerge
 
@@ -24,6 +24,8 @@ export default class Store extends MPL.Store {
       switch(action.type) {
         case "ADD_CARD":
           return this.addCard(state, action)
+        case "DROP_CARD":
+          return this.dropCard(state, action)
 
         case "UPDATE_BOARD_TITLE":
           return this.updateBoardTitle(state, action)
@@ -73,6 +75,12 @@ export default class Store extends MPL.Store {
   addCard(state, action) {
     return Automerge.change(state, this.meta(action), doc => {
       addCard(doc, {x: action.x, y: action.y});
+    })
+  }
+
+  dropCard(state, action) {
+    return Automerge.change(state, this.meta(action), doc => {
+      dropCard(doc, action.card.id, {x: action.x, y: action.y})
     })
   }
 

@@ -16,7 +16,7 @@ function swot() {
         "id": "4b8a27ec-6d9d-b22f-25c9-328f2ea365aa",
         "title": "Strengths",
         "x": 12,
-        "y": 100,
+        "y": 12,
         "w": 500,
         "h": 330,
         "cards": [
@@ -35,7 +35,7 @@ function swot() {
         "id": "eb87c580-f9df-ee55-4191-725fbecf7c1f",
         "title": "Weaknesses",
         "x": 512,
-        "y": 100,
+        "y": 12,
         "w": 500,
         "h": 330,
         "cards": [
@@ -63,7 +63,7 @@ function swot() {
         "id": "0b6c6bf9-63f8-0f0b-aae7-376fab65ad3e",
         "title": "Opportunities",
         "x": 12,
-        "y": 430,
+        "y": 342,
         "w": 500,
         "h": 330,
         "cards": []
@@ -72,7 +72,7 @@ function swot() {
         "id": "0fed57ee-6547-39ca-afe2-f0e33320ceeb",
         "title": "Threats",
         "x": 512,
-        "y": 430,
+        "y": 342,
         "w": 500,
         "h": 330,
         "cards": []

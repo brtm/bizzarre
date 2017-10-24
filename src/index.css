@@ -88,12 +88,15 @@ h2 {
   margin-bottom: 10px;
 }
 
-.Inspector,
-.Network,
+.Inspector {
+  display: none;
+}
+
+/*.Network,
 .Changes,
 .Documents {
   display: none;
-}
+}*/
 
 .Inspector img,
 .Network img,

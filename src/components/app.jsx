@@ -47,7 +47,7 @@ export default class App extends React.Component {
       let m = docUrl.match(/trellis:\/\/([a-z0-9-]+)/)
       if (m) {
         this.open(m[1])
-        this.board.flash.show(`Opened document URL (${ m[1] }) from clipboard`)
+        //this.board.flash.show(`Opened document URL (${ m[1] }) from clipboard`)
       } else
         dialog.showErrorBox("Invalid document URL", "Should be trellis:// but your clipboard contains:\n\n" + docUrl)
     })
@@ -183,6 +183,17 @@ export default class App extends React.Component {
     });
   }
 
+  dropCard(card, x, y, deltaX, deltaY) {
+    this.store.dispatch({
+      type: 'DROP_CARD',
+      card: card,
+      x: x,
+      y: y,
+      deltaX: deltaX,
+      deltaY: deltaY
+    })
+  }
+
   // render
 
   render() {
@@ -218,7 +229,9 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <Canvas model={this.store.getState()}
-          onAddCard={this.addCard.bind(this)} />
+          onAddCard={this.addCard.bind(this)} 
+          onDropCard={this.dropCard.bind(this)}
+          />
         {/*<Board ref={ (node) => this.board = node } highlightOptions={{ cardId: highlightCard }} store={ this.store } />*/}
         <Inspector store={ this.store } highlightOptions={{ tableName: "cards", row: cardIndex }} />
         <div className="Sidebar">

@@ -6,14 +6,14 @@ export default class Canvas extends React.Component {
     //const {addBox} = this.props;
     const {model} = this.props;
     const blocks = model.blocks || [];
-    console.log(blocks);
 
     return (
         <div onDoubleClick={e => this.props.onAddCard(e.pageX, e.pageY)}>
 
             {blocks.map((block) =>
                 <Container key={block.id} 
-                    block={block}/>
+                    block={block}
+                    onDropCard={this.props.onDropCard}/>
             )}
         </div>
     );

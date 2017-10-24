@@ -9,7 +9,6 @@ class Container extends Component {
     const block = this.props.block;
     const titleClass = block.title.replace(/ /g,'').toLowerCase();
     const cards = block.cards || [];
-    console.log(cards);
 
     return <div className={"block " + titleClass} style={{
           position: 'absolute',
@@ -30,7 +29,8 @@ class Container extends Component {
           <div className="cards">
           {cards.map(card =>
             <Card key={card.id} 
-                card={card}/>
+                card={card}
+                onDropCard={this.props.onDropCard}/>
           )}
           </div>
 
