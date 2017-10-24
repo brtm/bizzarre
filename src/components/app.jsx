@@ -61,9 +61,9 @@ export default class App extends React.Component {
   componentDidMount() {
     let lastDocOpened = this.getRecentDocsAsList().slice(-1)[0]
 
- //   if(lastDocOpened && lastDocOpened.id)
- //     this.open(lastDocOpened.id)
- //   else
+    if(lastDocOpened && lastDocOpened.id)
+      this.open(lastDocOpened.id)
+    else
       this.open()
   }
 

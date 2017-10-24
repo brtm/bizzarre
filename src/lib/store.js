@@ -188,6 +188,7 @@ export default class Store extends MPL.Store {
       doc.blocks = data.blocks
       doc.cards = data.cards
       doc.docId = this.generateDocId()
+      doc.title = "ROOT";
       doc.boardTitle = this.humanize(doc.docId)
     })
   }

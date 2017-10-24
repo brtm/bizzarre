@@ -2,8 +2,8 @@ import uuid from './lib/uuid'
 
 export function toAbsolute(point, block) {
   return {
-    x: block.x + point.x,
-    y: block.y + point.y
+    x: (block.x || 0) + point.x,
+    y: (block.y || 0) + point.y
   };
 }
 
@@ -110,6 +110,9 @@ export function dropCard(doc, cardId, point) {
     const centerPoint = toAbsolute(relativeCenterPoint(point, card), currentBlock);
     const targetBlock = findBlockForXY(doc, centerPoint);
 
+    console.log("*** FROM: " + currentBlock.title);
+    console.log("*** TO: " + targetBlock.title);
+
     if (currentBlock.id !== targetBlock.id) {
          const i = currentBlock.cards.findIndex(c => c.id === cardId);
          currentBlock.cards.splice(i, 1);
@@ -118,8 +121,14 @@ export function dropCard(doc, cardId, point) {
          card.y += point.y;
 
          // adjust to relatives of new parent
-         card.x -= targetBlock.x - currentBlock.x;
-         card.y -= targetBlock.y - currentBlock.y;
+         if (targetBlock === doc) {
+            card.x += currentBlock.x;
+            card.y += currentBlock.y;
+         }
+         else {
+            card.x -= targetBlock.x - (currentBlock.x || 0);
+            card.y -= targetBlock.y - (currentBlock.y || 0);
+        }
     }
     else {
         card.x += point.x;
