@@ -43,10 +43,10 @@ export function findBlockFor(model, card) {
 }
 
 
-export function relativeCenterPoint(card) {
+export function relativeCenterPoint(point, card) {
   return {
-    x: card.x + (card.w / 2),
-    y: card.y + (card.h / 2)
+    x: point.x + card.x + (card.w / 2),
+    y: point.y + card.y + (card.h / 2)
   };
 }
 
@@ -107,63 +107,24 @@ export function addCard(doc, point) {
 export function dropCard(doc, cardId, point) {
     const card = findCard(doc, cardId);
     const currentBlock = findBlockFor(doc, card);
-    const centerPoint = {
-        x: point.x + (card.w / 2),
-        y: point.y + (card.h / 2)};
+    const centerPoint = toAbsolute(relativeCenterPoint(point, card), currentBlock);
     const targetBlock = findBlockForXY(doc, centerPoint);
 
-    // if (currentBlock.id !== targetBlock.id) {
-    //      const i = currentBlock.cards.findIndex(c => c.id === cardId);
-    //      currentBlock.cards.splice(i, 1);
-    //      targetBlock.cards.push(card);
-    // }
-    // if (currentBlock !== targetBlock) {
+    if (currentBlock.id !== targetBlock.id) {
+         const i = currentBlock.cards.findIndex(c => c.id === cardId);
+         currentBlock.cards.splice(i, 1);
+         targetBlock.cards.push(card);
+         card.x += point.x;
+         card.y += point.y;
 
-    //     card.x += point.x - targetBlock.x;
-    //     card.y += point.y - targetBlock.y;
-    // }
-    // else 
-    {
+         // adjust to relatives of new parent
+         card.x -= targetBlock.x - currentBlock.x;
+         card.y -= targetBlock.y - currentBlock.y;
+    }
+    else {
         card.x += point.x;
         card.y += point.y;
     }
-
-    //card.x += point.x;
-    //card.y += point.y;
-/*
-    // ajust coordinates to relatives
-    if (targetBlock === doc) {
-        card.x += currentBlock.x;
-        card.y += currentBlock.y;
-    } else {
-        card.x -= targetBlock.x - currentBlock.x;// - targetBlock.x;
-        card.y -= targetBlock.y - currentBlock.y;// - targetBlock.y;
-    }*/
-    
-/*  store.dragging = null;
-
-  // find the current block
-  const model = store.model;
-  const currentBlock = findBlockFor(model, postIt);
-  const targetBlock = findBlockForPostItXY(model, postIt);
-
-  if (currentBlock !== targetBlock) {
-    for (let i = 0; i < currentBlock.postIts.length; i++) {
-      if (currentBlock.postIts[i] === postIt) {
-        currentBlock.postIts.splice(i, 1);
-        targetBlock.postIts.push(postIt);
-      }
-    }
-
-    // ajust coordinates to relatives
-    if (targetBlock === model) {
-      postIt.x += currentBlock.x;
-      postIt.y += currentBlock.y;
-    } else {
-      postIt.x -= targetBlock.x - currentBlock.x;// - targetBlock.x;
-      postIt.y -= targetBlock.y - currentBlock.y;// - targetBlock.y;
-    }
-  }*/
 }
 
 export function resizeCard(doc, cardId, width, height) {
