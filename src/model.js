@@ -34,7 +34,7 @@ export function findBlockFor(model, card) {
     const block = blocks[i];
     for (let j = 0; j < block.cards.length; j++) {
       const p = block.cards[j];
-      if (p === card) {
+      if (p.id === card.id) {
         return block;
       }
     }
@@ -89,7 +89,6 @@ export function addCard(doc, point) {
     const container = findBlockForXY(doc, point);
     const mx = container.x || 0;
     const my = container.y || 0;
-    console.log(point.x + ", " + point.y);
     if (!Array.isArray(container.cards)) {
         container.cards = [];
     }
@@ -111,21 +110,23 @@ export function dropCard(doc, cardId, point) {
     const centerPoint = {
         x: point.x + (card.w / 2),
         y: point.y + (card.h / 2)};
-
     const targetBlock = findBlockForXY(doc, centerPoint);
 
-    card.x += point.x;
-    card.y += point.y;
-
-
-    // if (currentBlock !== targetBlock) {
-    //     for (let i = 0; i < currentBlock.cards.length; i++) {
-    //         if (currentBlock.cards[i] === card) {
-    //             currentBlock.cards.splice(i, 1);
-    //             targetBlock.cards.push(card);
-    //         }
-    //     }
+    // if (currentBlock.id !== targetBlock.id) {
+    //      const i = currentBlock.cards.findIndex(c => c.id === cardId);
+    //      currentBlock.cards.splice(i, 1);
+    //      targetBlock.cards.push(card);
     // }
+    // if (currentBlock !== targetBlock) {
+
+    //     card.x += point.x - targetBlock.x;
+    //     card.y += point.y - targetBlock.y;
+    // }
+    // else 
+    {
+        card.x += point.x;
+        card.y += point.y;
+    }
 
     //card.x += point.x;
     //card.y += point.y;

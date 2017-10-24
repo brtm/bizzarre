@@ -128,8 +128,8 @@ class Card extends Component {
     const deltaX = (this.state.deltaX || 0);
     const deltaY = (this.state.deltaY || 0);
     setTimeout(() => {
-      this.props.onDropCard(card, deltaX, deltaY)
       this.setState({deltaX: 0, deltaY: 0});
+      this.props.onDropCard(card, deltaX, deltaY)
     }, 0);
   }
 
