@@ -19,7 +19,6 @@ global.app = app
 let mainWindow;
 
 const isDevMode         = process.execPath.match(/[\\/]electron/)
-const dialogPreferences = { filters: [ { name: "Trellis Files", extensions: ["trellis"] }] }
 
 const createWindow = async () => {
   // Create the browser window.
@@ -53,10 +52,7 @@ const createWindow = async () => {
         {
           label: 'Fork', accelerator: 'CmdOrCtrl+Y', click: (item, focusedWindow) => {
             mainWindow.webContents.send("forkDocument")
-        }},
-        {
-          type: "separator"
-        }
+        }}
       ]
     },
     {

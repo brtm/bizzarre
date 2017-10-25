@@ -148,53 +148,6 @@ class Card extends Component {
     this.props.onResizeCard(card, width, height);
     this.setState({rw: undefined, rh: undefined});
   }
-
-/*  onMoveToFront = (e) => {
-    e.stopPropagation();
-    this.props.onMoveToFront(this.props.postIt);
-  };
-
-  onMoveToBack = (e) => {
-    e.stopPropagation();
-    this.props.onMoveToBack(this.props.postIt);
-  };
-
-  onDuplicatePostIt = (e) => {
-    e.stopPropagation();
-    this.props.onDuplicatePostIt(this.props.postIt);
-  };
-
-  onChangeColor = (e, color) => {
-    e.stopPropagation();
-    this.props.postIt.color = color;
-  };
-
-  onClick(e) {
-    e.stopPropagation();
-    this.props.onSelect(this.props.postIt);
-  }
-
-  onDelete = (e) => {
-    e.stopPropagation();
-    const postIt = this.props.postIt;
-    this.props.onDeletePostIt(postIt);
-  };
-
-  handleDrag(e, dragInfo) {
-    e.preventDefault();
-    const postIt = this.props.postIt;
-    this.props.onDragPostIt(postIt, dragInfo.deltaX, dragInfo.deltaY);
-  }
-
-  handleResize = (e, postIt, size) => {
-    event.preventDefault();
-    this.props.onResizePostIt(postIt, size.width, size.height);
-  };
-
-  handleDrop = (postIt, dragInfo) => {
-    setTimeout(() => this.props.onDropPostIt(postIt, dragInfo.x, dragInfo.y, dragInfo.deltaX, dragInfo.deltaY), 1);
-  }*/
-
 }
 
 export default Card;
