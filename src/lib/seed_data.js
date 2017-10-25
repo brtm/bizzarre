@@ -39,24 +39,6 @@ function swot() {
         "w": 500,
         "h": 330,
         "cards": [
-/*          {
-            "id": "0a0dafd2-41c1-2307-22a9-5f4ead8b960f",
-            "title": "And more text!",
-            "x": 47,
-            "y": 124,
-            "w": 150,
-            "h": 60,
-            "color": "yellow"
-          },
-          {
-            "id": "47824b4c-3e21-92f5-baa3-e9ffe6ece6ae",
-            "title": "MOAR!",
-            "x": 141,
-            "y": 226,
-            "w": 150,
-            "h": 60,
-            "color": "yellow"
-          }*/
         ]
       },
       {

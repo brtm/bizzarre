@@ -110,9 +110,6 @@ export function dropCard(doc, cardId, point) {
     const centerPoint = toAbsolute(relativeCenterPoint(point, card), currentBlock);
     const targetBlock = findBlockForXY(doc, centerPoint);
 
-    console.log("*** FROM: " + currentBlock.title);
-    console.log("*** TO: " + targetBlock.title);
-
     if (currentBlock.id !== targetBlock.id) {
          const i = currentBlock.cards.findIndex(c => c.id === cardId);
          currentBlock.cards.splice(i, 1);
