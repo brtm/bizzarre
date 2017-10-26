@@ -2,7 +2,7 @@ import fs from 'fs'
 import uuid from './uuid'
 import seedData from './seed_data'
 import MPL from 'mpl'
-import {addCard, dropCard, resizeCard, renameCard} from '../model'
+import {addCard, dropCard, resizeCard, renameCard, changeCardColor, moveToFront, moveToBack, duplicateCard, deleteCard} from '../model'
 
 const Automerge = MPL.Automerge
 
@@ -30,7 +30,17 @@ export default class Store extends MPL.Store {
           return this.resizeCard(state, action)
         case "RENAME_CARD":
           return this.renameCard(state, action)
-
+        case "CHANGE_CARD_COLOR":
+          return this.changeCardColor(state, action)
+        case 'MOVE_CARD_TO_FRONT':
+          return this.moveToFront(state, action)
+        case 'MOVE_CARD_TO_BACK':
+          return this.moveToBack(state, action)
+        case 'DELETE_CARD':
+          return this.deleteCard(state, action)
+        case 'DUPLICATE_CARD':
+          return this.duplicateCard(state, action)
+ 
         case "UPDATE_BOARD_TITLE":
           return this.updateBoardTitle(state, action)
         case "CREATE_CARD":
@@ -99,9 +109,40 @@ export default class Store extends MPL.Store {
       renameCard(doc, action.card.id, action.name);
     })
   }
+
+  changeCardColor(state, action) {
+    return Automerge.change(state, this.meta(action), doc => {
+      changeCardColor(doc, action.card.id, action.color);
+    })
+  }
+
+  moveToFront(state, action) {
+    return Automerge.change(state, this.meta(action), doc => {
+      moveToFront(doc, action.card.id);
+    })
+  }
+
+  moveToBack(state, action) {
+    return Automerge.change(state, this.meta(action), doc => {
+      moveToBack(doc, action.card.id);
+    })
+  }
+
+  deleteCard(state, action) {
+    return Automerge.change(state, this.meta(action), doc => {
+      deleteCard(doc, action.card.id);
+    })
+  }
+
+  duplicateCard(state, action) {
+    return Automerge.change(state, this.meta(action), doc => {
+      duplicateCard(doc, action.card.id);
+    })
+  }
+
   // old
 
-  createComment(state, action) {
+/*  createComment(state, action) {
     return Automerge.change(state, this.meta(action), (doc) => {
       if(!Array.isArray(doc.comments))
         doc.comments = []
@@ -114,7 +155,7 @@ export default class Store extends MPL.Store {
         createdAt: new Date().toJSON()
       })
     })
-  }
+  }*/
 
   // Ignore all actions if we are time traveling, unless we are
   // stopping time travel or receiving inbound deltas from the network
@@ -206,7 +247,7 @@ export default class Store extends MPL.Store {
       doc.docId = this.generateDocId()
     })
   }
-
+/*
   updateBoardTitle(state, action) {
     return Automerge.change(state, this.meta(action), (doc) => {
       doc.boardTitle = action.value
@@ -374,5 +415,5 @@ export default class Store extends MPL.Store {
 
   findListFromState(listId, state) {
     return state.lists.find(list => listId === list.id)
-  }
+  }*/
 }

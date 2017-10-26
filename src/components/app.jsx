@@ -130,14 +130,50 @@ export default class App extends React.Component {
     });
   }
 
+  changeCardColor(card, color) {
+    this.store.dispatch({
+      type: 'CHANGE_CARD_COLOR',
+      card: card,
+      color: color
+    })
+  }
+
+  moveToFront(card) {
+    this.store.dispatch({
+      type: 'MOVE_CARD_TO_FRONT',
+      card: card
+    });
+  }
+
+  moveToBack(card) {
+    this.store.dispatch({
+      type: 'MOVE_CARD_TO_BACK',
+      card: card
+    });
+  }
+
+  deleteCard(card) {
+    this.store.dispatch({
+      type: 'DELETE_CARD',
+      card: card
+    });
+  }
+
+  duplicateCard(card) {
+    this.store.dispatch({
+      type: 'DUPLICATE_CARD',
+      card: card
+    });
+  }
+
   select(card) {
-    const cardId = card !== null? card.id : null;
-    this.setState({selected: cardId});
+    //const cardId = card !== null? card.id : null;
+    this.setState({selected: card});
   }
 
   isSelected(card) {
     const {selected} = this.state;
-    return card.id === selected;
+    return selected && card.id === selected.id;
   }
 
   // render
@@ -164,7 +200,14 @@ export default class App extends React.Component {
         </div>
 
         <div className="Sidebar">
-          <CardProperties />
+          <CardProperties 
+            selection={this.state.selected}
+            onColorChange={this.changeCardColor.bind(this)}
+            onMoveToFront={this.moveToFront.bind(this)}
+            onMoveToBack={this.moveToBack.bind(this)}
+            onDelete={this.deleteCard.bind(this)}
+            onDuplicate={this.duplicateCard.bind(this)}
+            />
           <Network network={ this.store.network } store={ this.store } />
           {/*<Documents recentDocs={ this.getRecentDocsAsList() } network={ this.store.network } openDocument={ this.open } myDocId={ this.getDocId() } myName={ MPL.config.name } />*/}
           <Changes store={ this.store } history={ history } />

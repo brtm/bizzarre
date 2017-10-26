@@ -99,6 +99,10 @@ a {
   overflow-y: auto;
 }
 
+.Sidebar .card {
+  z-index: 2000;
+}
+
 .network .table {
   font-size: 0.9em;
 }

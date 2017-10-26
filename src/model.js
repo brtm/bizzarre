@@ -143,3 +143,52 @@ export function renameCard(doc, cardId, name) {
     const card = findCard(doc, cardId);
     card.title = name;
 }
+
+export function changeCardColor(doc, cardId, color) {
+    const card = findCard(doc, cardId);
+    card.color = color;
+}
+
+export function moveToFront(doc, cardId) {
+    const card = findCard(doc, cardId);
+    const block = findBlockFor(doc, card);
+    const i = block.cards.findIndex(c => c.id === cardId);
+    if (i >= 0) {
+        block.cards.splice(i, 1);
+        block.cards.push(card);
+    }
+}
+
+export function moveToBack(doc, cardId) {
+    const card = findCard(doc, cardId);
+    const block = findBlockFor(doc, card);
+    const i = block.cards.findIndex(c => c.id === cardId);
+    if (i >= 0) {
+        block.cards.splice(i, 1);
+        block.cards.unshift(card);
+    }
+}
+
+export function deleteCard(doc, cardId) {
+    const card = findCard(doc, cardId);
+    const block = findBlockFor(doc, card);
+    const i = block.cards.findIndex(c => c.id === cardId);
+    if (i >= 0) {
+        delete block.cards[i];
+    }
+}
+
+export function duplicateCard(doc, cardId) {
+    const card = findCard(doc, cardId);
+    const block = findBlockFor(doc, card);
+    block.cards.push({
+        "id": uuid(),
+        "title": card.title,
+        "x": card.x + 20,
+        "y": card.y + 20,
+        "w": card.w,
+        "h": card.h,
+        "color": card.color
+    });
+
+}

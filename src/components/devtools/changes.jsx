@@ -39,9 +39,9 @@ export default class Changes extends React.Component {
       case "UPDATE_CARD_DESCRIPTION":
         var card = this.store.findCardFromState(meta.action.cardId, change.snapshot)
         return <div><span className="author">{meta.author}</span> changed description of <span className="card">{card.title}</span></div>
-      case "DELETE_CARD":
-        var card = this.store.findCardFromState(meta.action.cardId, prevChange.snapshot)
-        return <div><span className="author">{meta.author}</span> deleted <span className="card">{card.title}</span></div>
+//      case "DELETE_CARD":
+//        var card = this.store.findCardFromState(meta.action.cardId, prevChange.snapshot)
+//        return <div><span className="author">{meta.author}</span> deleted <span className="card">{card.title}</span></div>
       case "UPDATE_ASSIGNMENTS":
         var prevCard = this.store.findCardFromState(meta.action.cardId, prevChange.snapshot)
         var newCard = this.store.findCardFromState(meta.action.cardId, change.snapshot)
