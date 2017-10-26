@@ -166,7 +166,7 @@ export default class Network extends React.Component {
     else
       introducerDefault = "localhost:4242"
 
-    return <div className="card network" >
+    return <div className="card network" style={{display: this.props.enabled? "block" : "none"}}>
         <div className="card-header">Network</div>
         <div className="card-body">
           <form>
@@ -203,7 +203,7 @@ export default class Network extends React.Component {
             </div>
         </form>
         <table className="table">
-          <thead><tr><th></th><th>Peer</th><th>ID</th><th>Sent</th><th>Received</th></tr></thead>
+          <thead><tr><th></th><th>Peer</th><th>ID</th><th>Tx</th><th>Rx</th></tr></thead>
           <tbody>{ peersPartial }</tbody>
         </table>
 

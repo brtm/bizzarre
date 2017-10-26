@@ -109,7 +109,7 @@ export default class Changes extends React.Component {
       timeTravelPartial = <a onClick={ () => this.store.dispatch({ type: "STOP_TIME_TRAVEL"}) }>Stop Time Travel</a>
     }
 
-    return <div className="card Changes" >
+    return <div className="card Changes" style={{display: this.props.enabled? "block" : "none"}}>
       <div className="card-header">Changes</div>
       <div className="card-body">
         <ul>{changesPartial}</ul>

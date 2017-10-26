@@ -25,7 +25,9 @@ export default class App extends React.Component {
     this.open     = this.open.bind(this)
     this.store    = new Store()
 
-    this.state = {selected: null};
+    this.state = {selected: null,
+      networkViewEnabled: true,
+      changesViewEnabled: true};
 
     this.store.subscribe(() => {
       this.setState({}) // Force component to re-render
@@ -50,6 +52,16 @@ export default class App extends React.Component {
 
     ipcRenderer.on("shareToClipboard", (event) => {
       ipcRenderer.send("shareToClipboardResult", this.getDocUrl())
+    })
+
+    ipcRenderer.on("toggleNetworkView", (event) => {
+      const {networkViewEnabled} = this.state;
+      this.setState({networkViewEnabled: !networkViewEnabled});
+    })
+
+    ipcRenderer.on("toggleChangesView", (event) => {
+      const {changesViewEnabled} = this.state;
+      this.setState({changesViewEnabled: !changesViewEnabled});
     })
   }
 
@@ -208,13 +220,10 @@ export default class App extends React.Component {
             onDelete={this.deleteCard.bind(this)}
             onDuplicate={this.duplicateCard.bind(this)}
             />
-          <Network network={ this.store.network } store={ this.store } />
+          <Network enabled={this.state.networkViewEnabled} network={ this.store.network } store={ this.store } />
           {/*<Documents recentDocs={ this.getRecentDocsAsList() } network={ this.store.network } openDocument={ this.open } myDocId={ this.getDocId() } myName={ MPL.config.name } />*/}
-          <Changes store={ this.store } history={ history } />
+          <Changes enabled={this.state.changesViewEnabled} store={ this.store } history={ history } />
         </div>
-
-
-
 
         <Canvas model={this.store.getState()}
           onAddCard={this.addCard.bind(this)} 
@@ -224,7 +233,6 @@ export default class App extends React.Component {
           isSelected={this.isSelected.bind(this)}
           onChangeCardName={this.changeCardName.bind(this)}
           />
-        {/*<Board ref={ (node) => this.board = node } highlightOptions={{ cardId: highlightCard }} store={ this.store } />*/}
         {/*<Inspector store={ this.store } highlightOptions={{ tableName: "cards", row: cardIndex }} />*/}
       </div>
     )

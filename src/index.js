@@ -25,7 +25,7 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     width: 1400,
     height: 1000,
-    title: "-",
+    title: "BiZZarre",
     webPreferences: {
       experimentalFeatures: true
     }
@@ -75,6 +75,16 @@ const createWindow = async () => {
         {
           label: "Open Inspector", accelerator: 'CmdOrCtrl+Option+I', click: (item, focusedWindow) => {
             mainWindow.webContents.toggleDevTools()
+          }
+        },
+        {
+          label: "Toggle Network view", click: (item, focusedWindow) => {
+            focusedWindow.webContents.send("toggleNetworkView");
+          }
+        },
+        {
+          label: "Toggle Changes view", click: (item, focusedWindow) => {
+            focusedWindow.webContents.send("toggleChangesView");
           }
         }
       ]
