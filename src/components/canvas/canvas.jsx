@@ -11,13 +11,17 @@ export default class Canvas extends React.Component {
 
     return (
         <div className="canvas" 
+            onClick={e => this.props.onSelect(null)}
             onDoubleClick={e => this.props.onAddCard(e.pageX, e.pageY)}>
             
             {blocks.map((block) =>
                 <Container key={block.id} 
                     block={block}
                     onDropCard={this.props.onDropCard}
-                    onResizeCard={this.props.onResizeCard}/>
+                    onResizeCard={this.props.onResizeCard}
+                    onSelect={this.props.onSelect}
+                    isSelected={this.props.isSelected}
+                    onChangeCardName={this.props.onChangeCardName}/>
             )}
 
             <div className="cards">
@@ -25,7 +29,10 @@ export default class Canvas extends React.Component {
                     <Card key={card.id} 
                         card={card}
                         onDropCard={this.props.onDropCard}
-                        onResizeCard={this.props.onResizeCard}/>
+                        onResizeCard={this.props.onResizeCard}
+                        onSelect={this.props.onSelect}
+                        isSelected={this.props.isSelected}
+                        onChangeCardName={this.props.onChangeCardName}/>
                 )}
             </div>
 

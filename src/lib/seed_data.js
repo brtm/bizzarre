@@ -25,8 +25,8 @@ function swot() {
             "title": "Some random text here",
             "x": 53,
             "y": 38,
-            "w": 150,
-            "h": 60,
+            "w": 250,
+            "h": 120,
             "color": "yellow"
           }
         ]

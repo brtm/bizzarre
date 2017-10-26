@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Resizable} from 'react-resizable';
 import Draggable, {DraggableCore} from 'react-draggable';
-//import PostItToolbar from './PostItToolbar';
 
 class Card extends Component {
 
@@ -15,7 +14,7 @@ class Card extends Component {
   }
 
   componentDidMount() {
-    const selected = false;//this.props.isSelected(this.props.postIt);
+    const selected = this.props.isSelected(this.props.card);
     if (selected) {
       const node = ReactDOM.findDOMNode(this.refs.postItInput);
       //node.focus();
@@ -24,7 +23,7 @@ class Card extends Component {
   }
 
   componentDidUpdate() {
-    const selected = false;//this.props.isSelected(this.props.postIt);
+    const selected = this.props.isSelected(this.props.card);
     if (selected) {
       const node = ReactDOM.findDOMNode(this.refs.postItInput);
       //node.focus();
@@ -33,12 +32,13 @@ class Card extends Component {
   }
 
   render() {
-    const {x, y} = this.props.card;
+    const {card} = this.props;
+    const {x, y} = card;
     const deltaX = this.state.deltaX || 0;
     const deltaY = this.state.deltaY || 0;
-    const {title, color} = this.props.card;
-    const w = this.state.rw || this.props.card.w;
-    const h = this.state.rh || this.props.card.h;
+    const {title, color} = card;
+    const w = this.state.rw || card.w;
+    const h = this.state.rh || card.h;
 
     let textX = x + 20;
     let textY = y + 20;
@@ -46,25 +46,17 @@ class Card extends Component {
     let textH = h - 40;
 
     // the post it represented in SVG
-    const selected = false;//this.props.isSelected(this.props.postIt);
+    const selected = this.props.isSelected(card);
     const dragHandleHeight = 12;
 
-    const toolBarElem = undefined;
-/*    const toolBarElem = selected?
-      <PostItToolbar x={x} y={y - 40} selectedColor={color}
-        onMoveToFront={this.onMoveToFront}
-        onMoveToBack={this.onMoveToBack}
-        onDuplicatePostIt={this.onDuplicatePostIt}
-        onChangeColor={this.onChangeColor}
-        onDelete={this.onDelete}/> :
-      undefined;*/
-
+    const text = this.state.newName || title;
     const titleElem = selected?
       <textarea
-          onChange={(e) => this.props.postIt.title = e.target.value}
+          onChange={this.handleNameChange.bind(this)}
+          onBlur={this.handleNameUpdate.bind(this)}
           style={{width: (w - 8) + "px", height: (h - dragHandleHeight - 8) + "px"}}
           ref="postItInput"
-          value={title}>
+          value={text}>
       </textarea> :
       <p>{title}</p>;
 
@@ -75,8 +67,6 @@ class Card extends Component {
           onStop={this.handleDrop.bind(this)}>
 
         <div>
-          {toolBarElem}
-
           <Resizable height={h} width={w} minConstraints={[98, 50]} 
               onResizeStart={this.handleResizeStart.bind(this)}
               onResize={this.handleResize.bind(this)}
@@ -89,7 +79,7 @@ class Card extends Component {
                   width: w - 2, // 1px border on both sides
                   height: h - 2, // 1px border on both sides
                 }}
-                onClick={(e) => { e.stopPropagation(); /*this.props.onSelect(this.props.postIt);*/ }}>
+                onClick={this.handleSelect.bind(this)}>
 
               <div className="postit-color-layer">
                 <svg width={w - 2} height={h - 2} viewBox={"0 0 " + (w - 2) + " " + (h - 2)} xmlns="http://www.w3.org/2000/svg">
@@ -110,6 +100,25 @@ class Card extends Component {
         </div>
       </DraggableCore>
     </div>;
+  }
+
+  handleSelect(e) {
+    e.stopPropagation(); 
+    this.props.onSelect(this.props.card);
+  }
+
+  handleNameChange(e) {
+    const text = e.target.value;
+    this.setState({newName: text});
+  }
+
+  handleNameUpdate(e) {
+    const text = e.target.value;
+    const {card} = this.props;
+    if (card.title !== text) {
+      this.props.onChangeCardName(card, text);
+      this.setState({newName: null});
+    } 
   }
 
   handleDragStart(e, dragInfo) {

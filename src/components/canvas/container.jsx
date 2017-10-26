@@ -30,7 +30,10 @@ class Container extends Component {
             <Card key={card.id} 
                 card={card}
                 onDropCard={this.props.onDropCard}
-                onResizeCard={this.props.onResizeCard}/>
+                onResizeCard={this.props.onResizeCard}
+                onSelect={this.props.onSelect}
+                isSelected={this.props.isSelected}
+                onChangeCardName={this.props.onChangeCardName}/>
           )}
           </div>
 

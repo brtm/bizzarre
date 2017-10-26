@@ -25,6 +25,8 @@ export default class App extends React.Component {
     this.open     = this.open.bind(this)
     this.store    = new Store()
 
+    this.state = {selected: null};
+
     this.store.subscribe(() => {
       this.setState({}) // Force component to re-render
     })
@@ -120,6 +122,24 @@ export default class App extends React.Component {
     });
   }
 
+  changeCardName(card, name) {
+    this.store.dispatch({
+      type: 'RENAME_CARD',
+      card: card,
+      name: name
+    });
+  }
+
+  select(card) {
+    const cardId = card !== null? card.id : null;
+    this.setState({selected: cardId});
+  }
+
+  isSelected(card) {
+    const {selected} = this.state;
+    return card.id === selected;
+  }
+
   // render
 
   render() {
@@ -157,6 +177,9 @@ export default class App extends React.Component {
           onAddCard={this.addCard.bind(this)} 
           onDropCard={this.dropCard.bind(this)}
           onResizeCard={this.resizeCard.bind(this)}
+          onSelect={this.select.bind(this)}
+          isSelected={this.isSelected.bind(this)}
+          onChangeCardName={this.changeCardName.bind(this)}
           />
         {/*<Board ref={ (node) => this.board = node } highlightOptions={{ cardId: highlightCard }} store={ this.store } />*/}
         {/*<Inspector store={ this.store } highlightOptions={{ tableName: "cards", row: cardIndex }} />*/}

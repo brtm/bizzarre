@@ -138,3 +138,8 @@ export function resizeCard(doc, cardId, width, height) {
     card.w = width;
     card.h = height;
 }
+
+export function renameCard(doc, cardId, name) {
+    const card = findCard(doc, cardId);
+    card.title = name;
+}
