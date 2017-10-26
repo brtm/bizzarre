@@ -1,3 +1,10 @@
+.App, .canvas {
+  height: 100vh;
+}
+
+.block {
+  background-color: rgba(255, 255, 255, 0.5);
+}
 
 /* colors */
 .orange {

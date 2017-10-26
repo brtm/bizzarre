@@ -166,41 +166,101 @@ export default class Network extends React.Component {
     else
       introducerDefault = "localhost:4242"
 
-    return <div className="Network">
-      <h2>Network <img src="assets/images/peers.svg" /></h2>
-      <img className="networkSwitch" src={switchPath} onClick={ this.toggleNetwork } />
+    return <div className="card network" >
+        <div className="card-header">Network</div>
+        <div className="card-body">
+          <form>
+            <div className="form-check form-control-sm">
+              <label className="form-check-label">
+                <input type="checkbox" className="form-check-input form-check-input-sm" 
+                  checked={this.state.connected}
+                  onClick={ this.toggleNetwork }/>
+                Network enabled
+              </label>
+            </div>
+            <div className="form-group form-control-sm">
+              <label className="form-label-sm">Introducer</label>
+              <div className="form-row">
+                <div className="col">
+                <input className="form-control form-control-sm" 
+                  placeholder="ip:port" 
+                  onKeyDown={ this.handleInput } 
+                  ref={ (input) => this.introductionInput = input }
+                  defaultValue={ introducerDefault }/>
+                </div>
+                <div className="col-3">
+                <button onClick={ this.doIntroduction } className="btn btn-primary btn-sm">Connect</button>
+                </div>
+              </div>
+            </div>
+            <div className="form-check form-control-sm">
+              <label className="form-check-label">
+                <input type="checkbox" className="form-check-input" 
+                  checked={this.state.bonjourEnabled}
+                  onClick={ this.toggleBonjour }/>
+                Bonjour ({this.state.wifi})
+              </label>
+            </div>
+        </form>
+        <table className="table">
+          <thead><tr><th></th><th>Peer</th><th>ID</th><th>Sent</th><th>Received</th></tr></thead>
+          <tbody>{ peersPartial }</tbody>
+        </table>
 
-      <div className="Signalers">
-        <div className="Signaler__introduce__title">
-          <div className={ "led-" + this.state.introducerStatus } />
-          Introducer
-        </div>
-        <div className="Signaler__introduce__detail">
-          <textarea 
-            placeholder="ip:port" 
-            onKeyDown={ this.handleInput } 
-            ref={ (input) => this.introductionInput = input }
-            defaultValue={ introducerDefault }
-          />
-        </div>
-        <div className="Signaler__introduce__action">
-          <button onClick={ this.doIntroduction }>Connect</button>
-        </div>
-
-        <div className="Signaler__bonjour__title">
-          <div className={ "led-" + bonjourLed  } />
-          Bonjour
-        </div>
-        <div className="Signaler__bonjour__detail">{this.state.wifi}</div>
-        <div className="Signaler__bonjour__action">
-          <img className="bonjourSwitch" src={bonjourSwitchPath} onClick={ this.toggleBonjour } />
         </div>
       </div>
+{/*
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input">
+              Check me out
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
-      <table className="Peers">
-        <thead><tr><th></th><th>Peer</th><th>ID</th><th>Sent</th><th>Received</th></tr></thead>
-        <tbody>{ peersPartial }</tbody>
-      </table>
-    </div>
+
+
+              <div className="Signalers">
+                <div className="Signaler__introduce__title">
+                  <div className={ "led-" + this.state.introducerStatus } />
+                  Introducer
+                </div>
+                <div className="Signaler__introduce__detail">
+                  <textarea 
+                    placeholder="ip:port" 
+                    onKeyDown={ this.handleInput } 
+                    ref={ (input) => this.introductionInput = input }
+                    defaultValue={ introducerDefault }
+                  />
+                </div>
+                <div className="Signaler__introduce__action">
+                  <button onClick={ this.doIntroduction }>Connect</button>
+                </div>
+
+                <div className="Signaler__bonjour__title">
+                  <div className={ "led-" + bonjourLed  } />
+                  Bonjour
+                </div>
+                <div className="Signaler__bonjour__detail">{this.state.wifi}</div>
+                <div className="Signaler__bonjour__action">
+                  <img className="bonjourSwitch" src={bonjourSwitchPath} onClick={ this.toggleBonjour } />
+                </div>
+              </div>
+
+            </div>
+*/}
+
+
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Canvas from './canvas/canvas'
+import CardProperties from './cardproperties';
 
 import Store from '../lib/store'
 import { ipcRenderer, remote } from 'electron'
@@ -126,6 +127,32 @@ export default class App extends React.Component {
 
     return (
       <div className="App">
+        <div className="grid">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                  <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+                      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="lightgray" strokeWidth="0.5"/>
+                  </pattern>
+                  <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+                      <rect width="100" height="100" fill="url(#smallGrid)"/>
+                      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="lightgray" strokeWidth="1"/>
+                  </pattern>
+              </defs>
+
+              <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        <div className="Sidebar">
+          <CardProperties />
+          <Network network={ this.store.network } store={ this.store } />
+          {/*<Documents recentDocs={ this.getRecentDocsAsList() } network={ this.store.network } openDocument={ this.open } myDocId={ this.getDocId() } myName={ MPL.config.name } />*/}
+          <Changes store={ this.store } history={ history } />
+        </div>
+
+
+
+
         <Canvas model={this.store.getState()}
           onAddCard={this.addCard.bind(this)} 
           onDropCard={this.dropCard.bind(this)}
@@ -133,11 +160,6 @@ export default class App extends React.Component {
           />
         {/*<Board ref={ (node) => this.board = node } highlightOptions={{ cardId: highlightCard }} store={ this.store } />*/}
         {/*<Inspector store={ this.store } highlightOptions={{ tableName: "cards", row: cardIndex }} />*/}
-        <div className="Sidebar">
-          <Network network={ this.store.network } store={ this.store } />
-          {/*<Documents recentDocs={ this.getRecentDocsAsList() } network={ this.store.network } openDocument={ this.open } myDocId={ this.getDocId() } myName={ MPL.config.name } />*/}
-          <Changes store={ this.store } history={ history } />
-        </div>
       </div>
     )
   }

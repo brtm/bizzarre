@@ -17,8 +17,7 @@ class Container extends Component {
           width: block.w + borderWidth,
           height: block.h + borderWidth,
           border: borderWidth + 'px solid grey',
-          boxSizing: 'border-box',
-          backgroundColor: 'inherit'
+          boxSizing: 'border-box'
         }}>
 
         <div style={{ width: "100%" }}>

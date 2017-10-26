@@ -36,7 +36,7 @@ html, body, #App {
   /* https://coolors.co/d00000-ffba08-a2aebb-3e363f-3f88c5 */
   --color-app: #3F88C5;
 
-  --color-change-highlight-bg: #93C43E;
+  --color-change-highlight-bg: #007bff;
   --color-change-highlight: #698C2C;
 
   --color-dark: #3E363F;
@@ -49,7 +49,7 @@ html, body, #App {
   --color-led-connecting-border: #AA7B05;
 
   /* green LED */
-  --color-led-connected: #93C43E;
+  --color-led-connected: #007bff;
   --color-led-connected-border: #698C2C;
 
   /* gray LED */
@@ -66,20 +66,19 @@ a {
 }
 
 .App {
-  font-family: Helvetica Neue, Helvetica, Arial;
-  color: var(--color-dark);
   height: 100%;
-  display: grid;
-  grid-template-rows: 25% 25% 25% 25%;
-  grid-template-columns: 1fr;
 }
 
-h2 {
-  font-size: 20px;
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 10px;
+.grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.Sidebar .card {
+  margin-bottom: 20px;
 }
 
 .Inspector {
@@ -92,13 +91,25 @@ h2 {
   display: none;
 }*/
 
-.Inspector img,
-.Network img,
-.Changes img,
-.Documents img {
-  height: 20px;
-  padding-left: 4px;
+.Sidebar {
+  margin: 20px;
+  float: right;
+  width: 20rem;
+  z-index: 2000;
+  overflow-y: auto;
 }
+
+.network .table {
+  font-size: 0.9em;
+}
+
+.Sidebar .card-body {
+  font-size: 0.875em;
+}
+/*
+.network .table {
+  font-size: 0.7em;
+}*/
 
 .Inspector {
   grid-row: 4;
@@ -112,16 +123,6 @@ h2 {
 
 .Inspector__container {
   display: flex;
-}
-
-.Sidebar {
-  grid-row: 1 / 5;
-  grid-column: 4;
-  background-color: var(--color-light);
-  border-top: 1px solid #aaa;
-  border-left: 1px solid #aaa;
-  font-size: 12px;
-  overflow-y: auto;
 }
 
 .Network {
@@ -259,10 +260,6 @@ h2 {
   margin-top: 2px;
 }
 
-.Changes {
-  padding: 16px 16px;
-  padding-top: 0;
-}
 .Changes ul {
   list-style-type: none;
   padding: 0;

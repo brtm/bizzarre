@@ -109,10 +109,12 @@ export default class Changes extends React.Component {
       timeTravelPartial = <a onClick={ () => this.store.dispatch({ type: "STOP_TIME_TRAVEL"}) }>Stop Time Travel</a>
     }
 
-    return <div className="Changes">
-      <h2>Changes <img src="assets/images/delta.svg" /></h2>
-      <ul>{changesPartial}</ul>
-      { timeTravelPartial }
+    return <div className="card Changes" >
+      <div className="card-header">Changes</div>
+      <div className="card-body">
+        <ul>{changesPartial}</ul>
+        { timeTravelPartial }
+      </div>
     </div>
   }
 }
