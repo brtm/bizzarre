@@ -1,6 +1,8 @@
 # BiZZarre
 
-BiZZarre is a collaborative SWOT canvas tool. It is built on top of [MPL](https://github.com/automerge/mpl), a distributed persistence library that allows developers to build collaborative applications that are realtime, offline, and network partition tolerant. 
+BiZZarre is a collaborative SWOT canvas tool. It is a clone of [Trellis](https://github.com/automerge/trellis), which is built on top of [MPL](https://github.com/automerge/mpl), a distributed persistence library that allows developers to build collaborative applications that are realtime, offline, and network partition tolerant. 
+
+![screenshot](https://raw.githubusercontent.com/brtm/bizzarre/develop/screenshot.png)
 
 ## Development
 
